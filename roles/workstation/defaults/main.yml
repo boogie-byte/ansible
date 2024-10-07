@@ -3,3 +3,5 @@ ssh_hosts: []
 git:
   config: {}
   ignores: []
+go:
+  env: {}
