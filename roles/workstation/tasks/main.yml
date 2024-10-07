@@ -38,12 +38,12 @@
     path: "{{ ansible_user_dir }}/.config/git"
     state: directory
 - name: Copy .gitconfig
-  copy:
-    src: files/gitconfig
+  template:
+    src: templates/gitconfig.j2
     dest: "{{ ansible_user_dir}}/.config/git/config"
 - name: Copy .gitignore
-  copy:
-    src: files/gitignore
+  template:
+    src: templates/gitignore.j2
     dest: "{{ ansible_user_dir}}/.config/git/ignore"
 
 - name: Install neovim packages

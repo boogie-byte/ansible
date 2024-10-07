@@ -1,0 +1,4 @@
+# {{ ansible_managed }}
+{% for entry in git.ignores %}
+{{ entry }}
+{% endfor %}
