@@ -14,16 +14,24 @@ autoload -U select-word-style && select-word-style {{ zsh.word_style }}
 export {{ k }}={{ v }}
 {% endfor %}
 
+{% if zsh.histsize != '' %}
+HISTSIZE={{ zsh.histsize }}
+{% endif %}
+
+{% if zsh.savehist != '' %}
+SAVEHIST={{ zsh.savehist }}
+{% endif %}
+
 {% if zsh.path|length > 0 %}
 export PATH=$PATH:{{ zsh.path|join(':') }}
 {% endif %}
 
-{% for opt in zsh.opts.unset %}
-unsetopt {{ opt }}
-{% endfor %}
-
-{% for opt in zsh.opts.set %}
-setopt {{ opt }}
+{% for k, v in zsh.opts|dictsort %}
+{% if v %}
+setopt {{ k }}
+{% else %}
+unsetopt {{ k }}
+{% endif %}
 {% endfor %}
 
 {% for k, v in zsh.aliases|dictsort %}
