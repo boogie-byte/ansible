@@ -7,7 +7,7 @@ export BLOCKSIZE='K'
 #export LC_TIME="en_GB.UTF-8"
 #export LC_PAPER="en_GB.UTF-8"
 #export LC_MEASUREMENT="en_GB.UTF-8"
-export EDITOR=vim
+export EDITOR='vi'
 
 
 ### History settings
@@ -96,6 +96,9 @@ alias d='dirs'
 alias sush='sudo -E -s'
 alias sued='sudoedit'
 alias zsh-reload='. ~/.zshrc'
+alias vi='nvim'
+alias vim='nvim'
+alias vimdiff='nvim -d'
 
 ### k8s stuff
 alias kc=kubectl
