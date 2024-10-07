@@ -1,0 +1,108 @@
+---
+- name: Install ZSH
+  become: yes
+  package:
+    name: zsh
+    state: present
+- name: Use ZSH for current user
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: /bin/zsh
+- name: Copy ZSH config
+  copy:
+    src: files/zshrc
+    dest: "{{ ansible_user_dir }}/.zshrc"
+
+- name: Install OpenSSH
+  become: yes
+  package:
+    name: "{{ item }}"
+  loop:
+  - openssh-clients
+- name: Create OpenSSH client config dir
+  file:
+    path: "{{ ansible_user_dir }}/.ssh"
+    state: directory
+    mode: "0700"
+- name: Configure OpenSSH client
+  template:
+    src: templates/ssh_config.j2
+    dest: "{{ ansible_user_dir }}/.ssh/config"
+
+- name: Install git package
+  become: yes
+  package:
+    name: git
+- name: Copy .gitconfig
+  copy:
+    src: files/gitconfig
+    dest: "{{ ansible_user_dir}}/.gitconfig"
+- name: Copy .gitignore
+  copy:
+    src: files/gitignore
+    dest: "{{ ansible_user_dir}}/.gitignore"
+
+- name: Install neovim packages
+  become: yes
+  package:
+    name: "{{ item }}"
+  loop:
+  - neovim
+  - ripgrep
+  - fd
+- name: Fetch neovim configuration
+  git:
+    repo: https://github.com/boogie-byte/kickstart.nvim.git
+    dest: "{{ ansible_user_dir}}/.config/nvim"
+
+- name: Install docker
+  become: yes
+  package:
+    name: docker
+- name: Enable docker service
+  become: yes
+  service:
+    name: docker
+    enabled: yes
+    state: started
+- name: Add user to docker group
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"  
+    groups: docker
+    append: yes
+
+- name: Install golang dev packages
+  become: yes
+  package:
+    name: "{{ item }}"
+  loop:
+  - go
+  - golangci-lint
+
+- name: Install k8s tools
+  become: yes
+  package:
+    name: "{{ item }}"
+  loop:
+  - kubernetes-client # kubectl
+  - kustomize
+  - argocd-cli
+  - kubeseal
+
+- name: Install basic packages
+  become: yes
+  package:
+    name: "{{ item }}"
+  loop:
+  - wget
+  - gcc
+  - unzip
+  - python3
+  - perl
+  - make
+  - zig
+  - htop
+  - less
+  - jq 
+  - whois

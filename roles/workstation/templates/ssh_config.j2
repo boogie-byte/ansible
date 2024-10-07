@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+
+{% for host in ssh_hosts %}
+Host {{ host.name }}
+  IdentityFile {{ host.identity_file }}
+
+{% endfor %}
+
+
+Host *
+  ForwardAgent yes
