@@ -1,4 +1,14 @@
 ---
+zsh:
+  environment: {}
+  path: []
+  aliases: {}
+  opts:
+    set: []
+    unset: []
+  bindkey: ''
+  word_style: ''
+  zsh_extra: ''
 ssh_hosts: []
 git:
   config: {}

@@ -1,0 +1,33 @@
+# {{ ansible_managed }}
+
+{% if zsh.bindkey != '' %}
+bindkey -M {{ zsh.bindkey }} > /dev/null
+{% endif %}
+
+autoload -U compinit && compinit
+
+{% if zsh.word_style != '' %}
+autoload -U select-word-style && select-word-style {{ zsh.word_style }}
+{% endif %}
+
+{% for k, v in zsh.environment|dictsort %}
+export {{ k }}={{ v }}
+{% endfor %}
+
+{% if zsh.path|length > 0 %}
+export PATH=$PATH:{{ zsh.path|join(':') }}
+{% endif %}
+
+{% for opt in zsh.opts.unset %}
+unsetopt {{ opt }}
+{% endfor %}
+
+{% for opt in zsh.opts.set %}
+setopt {{ opt }}
+{% endfor %}
+
+{% for k, v in zsh.aliases|dictsort %}
+alias {{ k }}='{{ v }}'
+{% endfor %}
+
+{{ zsh.zsh_extra }}
