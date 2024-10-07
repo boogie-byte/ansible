@@ -87,15 +87,12 @@
   file:
     path: "{{ ansible_user_dir }}/.config/go"
     state: directory
-- name: Create go env config
-  file:
-    path: "{{ ansible_user_dir }}/.config/go/env"
-    state: touch
 - name: Set GOBIN variable
   lineinfile:
     path: "{{ ansible_user_dir }}/.config/go/env"
     regexp: "^GOBIN="
     line: "GOBIN={{ ansible_user_dir }}/.local/bin"
+    create: yes
 
 - name: Install k8s tools
   become: yes
