@@ -1,11 +1,90 @@
 ---
 zsh:
-  environment: {}
-  path: []
-  aliases: {}
-  opts: {}
-  bindkey: ''
-  word_style: ''
-  zsh_extra: ''
-  histsize: ''
-  savehist: ''
+  bindkey: emacs
+  word_style: bash
+  histsize: 1000
+  savehist: 1000
+  path:
+  - $HOME/.local/bin
+  environment:
+    PAGER: less
+    LESS: -R
+    BLOCKSIZE: K
+    EDITOR: vi
+    #LANG: en_US.UTF-8
+    #LC_TIME: en_GB.UTF-8
+    #LC_PAPER: en_GB.UTF-8
+    #LC_MEASUREMENT: en_GB.UTF-8
+  aliases:
+    l: ls -F --color=auto
+    ll: l -Ahl
+    grep: grep --color=auto
+    gr: grep -Inr --exclude-dir=".*"
+    i: grep -Fi
+    diff: diff --color=auto
+    p: pwd
+    h: fc -ldD
+    j: jobs -l
+    pu: pushd
+    po: popd
+    d: dirs
+    sush: sudo -E -s
+    sued: sudoedit
+    zsh-reload: . ~/.zshrc
+    vi: nvim
+    vim: nvim
+    vimdiff: nvim -d
+    kc: kubectl
+  opts:
+    EXTENDED_GLOB: true
+    EXTENDED_HISTORY: true
+    HIST_ALLOW_CLOBBER: true
+    HIST_EXPIRE_DUPS_FIRST: false
+    HIST_FCNTL_LOCK: true
+    HIST_IGNORE_ALL_DUPS: false
+    HIST_IGNORE_DUPS: true
+    HIST_IGNORE_SPACE: true
+    NO_AUTO_MENU: true
+    NO_AUTO_REMOVE_SLASH: true
+    NO_BEEP: true
+    NO_CLOBBER: true
+    PROMPT_SUBST: true
+    SHARE_HISTORY: false
+  zsh_extra: |
+    function nohist_prompt_hook {
+      if [ -z "${HISTFILE}" ]; then
+        nohist_prompt_msg_="%F{red}NOHIST%f "
+      else
+        unset nohist_prompt_msg_
+      fi
+    }
+
+    autoload -Uz vcs_info
+    autoload -Uz add-zsh-hook
+    add-zsh-hook precmd vcs_info
+    add-zsh-hook precmd nohist_prompt_hook
+
+    zstyle ':vcs_info:*' enable git
+    zstyle ':vcs_info:*' check-for-changes true
+    zstyle ':vcs_info:*' formats '%s:%F{magenta}%b%f%c%u '
+    zstyle ':vcs_info:*' actionformats '%s:%F{magenta%b%f[%F{red}%a%f]%c%u '
+    zstyle ':vcs_info:*' stagedstr '%F{green}+%f'
+    zstyle ':vcs_info:*' unstagedstr '%F{red}!%f'
+
+    if [ "$TERM_PROGRAM" = "vscode" ]; then
+        export PROMPT='${vcs_info_msg_0_}${nohist_prompt_msg_}%(!.%F{red}.%F{grey})%#%f '
+    else
+        export PROMPT='%F{blue}%n%f@%F{green}%m%f %F{yellow}%~%f ${vcs_info_msg_0_}${nohist_prompt_msg_}%(!.%F{red}.%F{grey})%#%f '
+    fi
+
+    bindkey "^[OH" beginning-of-line
+    bindkey "^[OF" end-of-line
+    bindkey "^[[3~" delete-char
+
+    kc-ctx() {
+        if [ -z "${1}" ]; then
+            kubectl config get-contexts
+        else
+            kubectl config use-context ${1}
+        fi
+    }

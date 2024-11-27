@@ -1,7 +1,34 @@
 ---
 ssh_hosts: []
 git:
-  config: {}
-  ignores: []
+  ignores:
+  - '*~'
+  - '*.swp'
+  - '*.swo'
+  - '*.pyc'
+  - '*.pyo'
+  - '*.sublime-project'
+  - '*.sublime-workspace'
+  - '*.code-workspace'
+  config:
+    user:
+      name: Sergey Vinogradov
+      useConfigOnly: "true"
+    push:
+      default: simple
+    alias:
+      co: checkout
+      ci: commit
+      st: status -s
+      br: branch --sort=-committerdate
+      hist: log --graph --pretty=format:\"[%h] %an %ad%d%n%s%n\" --date=local
+    color:
+      ui: auto
+    init:
+      defaultBranch: main
+    pull:
+      rebase: true
+
 go:
-  env: {}
+  env:
+    GOBIN: "{{ ansible_user_dir }}/.local/bin"
