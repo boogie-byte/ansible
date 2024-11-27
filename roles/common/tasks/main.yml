@@ -5,6 +5,7 @@
     name: zsh
     state: present
 - name: Use ZSH for current user
+  become: yes
   user:
     name: "{{ ansible_user_id }}"
     shell: /bin/zsh
