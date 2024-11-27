@@ -1,0 +1,11 @@
+---
+zsh:
+  environment: {}
+  path: []
+  aliases: {}
+  opts: {}
+  bindkey: ''
+  word_style: ''
+  zsh_extra: ''
+  histsize: ''
+  savehist: ''

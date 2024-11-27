@@ -1,18 +1,4 @@
 ---
-- name: Install ZSH
-  become: yes
-  package:
-    name: zsh
-    state: present
-- name: Use ZSH for current user
-  user:
-    name: "{{ ansible_user_id }}"
-    shell: /bin/zsh
-- name: Create ZSH config
-  template:
-    src: templates/zshrc.j2
-    dest: "{{ ansible_user_dir }}/.zshrc"
-
 - name: Install OpenSSH
   become: yes
   package:
@@ -59,23 +45,6 @@
     repo: git@github.com:boogie-byte/kickstart.nvim.git
     dest: "{{ ansible_user_dir}}/.config/nvim"
 
-- name: Install docker
-  become: yes
-  package:
-    name: docker
-- name: Enable docker service
-  become: yes
-  service:
-    name: docker
-    enabled: yes
-    state: started
-- name: Add user to docker group
-  become: yes
-  user:
-    name: "{{ ansible_user_id }}"  
-    groups: docker
-    append: yes
-
 - name: Install golang dev packages
   become: yes
   package:
@@ -107,14 +76,10 @@
   package:
     name: "{{ item }}"
   loop:
-  - wget
   - gcc
-  - unzip
-  - python3
-  - perl
-  - make
-  - zig
-  - htop
-  - less
   - jq 
+  - make
+  - perl
+  - python3
   - whois
+  - zig
