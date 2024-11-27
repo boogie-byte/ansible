@@ -22,6 +22,10 @@ HISTSIZE={{ zsh.histsize }}
 SAVEHIST={{ zsh.savehist }}
 {% endif %}
 
+{% if zsh.histfile != '' %}
+HISTFILE={{ zsh.histfile }}
+{% endif %}
+
 {% if zsh.path|length > 0 %}
 export PATH=$PATH:{{ zsh.path|join(':') }}
 {% endif %}

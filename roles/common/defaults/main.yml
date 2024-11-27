@@ -4,6 +4,7 @@ zsh:
   word_style: bash
   histsize: 1000
   savehist: 1000
+  histfile: $HOME/.zsh_history
   path:
   - $HOME/.local/bin
   environment:
