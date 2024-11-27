@@ -2,9 +2,7 @@
 - name: Install OpenSSH
   become: yes
   package:
-    name: "{{ item }}"
-  loop:
-  - openssh-clients
+    name: openssh-client
 - name: Create OpenSSH client config dir
   file:
     path: "{{ ansible_user_dir }}/.ssh"
