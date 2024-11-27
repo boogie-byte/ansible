@@ -37,7 +37,7 @@
   loop:
   - neovim
   - ripgrep
-  - fd
+  - fd-find
 - name: Fetch neovim configuration
   git:
     repo: git@github.com:boogie-byte/kickstart.nvim.git
