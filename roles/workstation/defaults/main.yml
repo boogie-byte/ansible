@@ -1,5 +1,8 @@
 ---
-ssh_hosts: []
+ssh_hosts:
+  '*':
+    ForwardAgent: yes
+
 git:
   ignores:
   - '*~'

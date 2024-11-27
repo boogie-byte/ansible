@@ -1,11 +1,9 @@
 # {{ ansible_managed }}
 
-{% for host in ssh_hosts %}
-Host {{ host.name }}
-  IdentityFile {{ host.identity_file }}
-
+{% for hostname, entry in ssh_hosts | dictsort %}
+Host {{ hostname }}
+{% for entry_name, entry_value in entry | dictsort %}
+  {{ entry_name }} {{ entry_value }}
 {% endfor %}
 
-
-Host *
-  ForwardAgent yes
+{% endfor %}
