@@ -42,6 +42,12 @@
   git:
     repo: git@github.com:boogie-byte/kickstart.nvim.git
     dest: "{{ ansible_user_dir}}/.config/nvim"
+- name: "Make 'vim' an alias for 'nvim'"
+  copy:
+    dest: "{{ ansible_user_dir }}/.zshrc.d/nvim_alias.sh"
+    content: |
+      alias vim='nvim'
+      alias vimdiff='nvim -d'
 
 - name: Install golang dev packages
   become: yes
