@@ -8,4 +8,4 @@
     - ansible.builtin.include_vars:
         file: local_vars.yml
         hash_behaviour: merge
-      when: "(playbook_dir+'/local_vars.yml') is ansible.builtin.exists"
+      when: "([playbook_dir, 'local_vars.yml'] | path_join) is exists"
