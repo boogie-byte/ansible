@@ -13,6 +13,10 @@
   template:
     src: templates/zshrc.j2
     dest: "{{ ansible_user_dir }}/.zshrc"
+- name: Create ZSH config directory
+  file:
+    path: "{{ ansible_user_dir }}/.zshrc.d"
+    state: directory
 
 - name: Install basic packages
   become: yes
