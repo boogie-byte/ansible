@@ -113,7 +113,5 @@
   - make
   - perl
   - python3
-  - ripgrep
   - whois
   - unzip
-  - zig
