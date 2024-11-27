@@ -1,7 +1,9 @@
 # {{ ansible_managed }}
+
 {% for section_name, section_entries in git.config|dictsort %}
 [{{ section_name }}]
 {% for entry_name, entry_value in section_entries|dictsort %}
     {{ entry_name }} = {{ entry_value }}
 {% endfor %}
+
 {% endfor %}
