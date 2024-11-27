@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  roles:
+    - common
+    - docker
+    - workstation
+  pre_tasks:
+    - ansible.builtin.include_vars:
+        file: local_vars.yml
+        hash_behaviour: merge
