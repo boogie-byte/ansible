@@ -73,6 +73,11 @@
   apt:
     deb: https://github.com/golangci/golangci-lint/releases/download/v1.61.0/golangci-lint-1.61.0-linux-amd64.deb
 
+- name: Install GitLab CLI tool
+  become: yes
+  apt:
+    deb: https://gitlab.com/gitlab-org/cli/-/releases/v1.49.0/downloads/glab_1.49.0_linux_amd64.deb
+
 - name: Add k8s release key
   become: yes
   get_url:
