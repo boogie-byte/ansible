@@ -104,6 +104,11 @@
     cmd: go install go.uber.org/mock/mockgen@v0.4.0
     creates: "{{ ansible_user_dir }}/.local/bin/mockgen"
 
+- name: Install oapi-codegen
+  command:
+    cmd: go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.4.1
+    creates: "{{ ansible_user_dir }}/.local/bin/oapi-codegen"
+
 - name: Install GitLab CLI tool
   become: yes
   apt:
