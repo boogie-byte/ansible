@@ -32,7 +32,6 @@ zsh:
     sush: sudo -E -s
     sued: sudoedit
     zsh-reload: . ~/.zshrc
-    kc: kubectl
   opts:
     EXTENDED_GLOB: true
     EXTENDED_HISTORY: true
@@ -78,11 +77,3 @@ zsh:
     bindkey "^[OH" beginning-of-line
     bindkey "^[OF" end-of-line
     bindkey "^[[3~" delete-char
-
-    kc-ctx() {
-        if [ -z "${1}" ]; then
-            kubectl config get-contexts
-        else
-            kubectl config use-context ${1}
-        fi
-    }
