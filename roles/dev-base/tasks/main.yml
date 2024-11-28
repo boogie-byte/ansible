@@ -90,5 +90,6 @@
   - make
   - perl
   - python3
+  - strace
   - whois
   - unzip
