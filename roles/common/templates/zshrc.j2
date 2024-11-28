@@ -44,4 +44,6 @@ alias {{ k }}='{{ v }}'
 
 {{ zsh.zsh_extra }}
 
-source ${HOME}/.zshrc.d/*
+for i in ${HOME}/.zshrc.d/*.sh; do
+  source ${i}
+done
