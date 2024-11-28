@@ -3,10 +3,10 @@
   roles:
     - common
     - docker
-    - workstation
-    - go-dev
-    - k8s-dev
-    - protobuf-dev
+    - dev-base
+    - dev-go
+    - dev-k8s
+    - dev-protobuf
   pre_tasks:
     - ansible.builtin.include_vars:
         file: local_vars.yml
