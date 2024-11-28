@@ -121,6 +121,16 @@
     path: /usr/local/bin/buf
     mode: 0755
 
+- name: Install protobuf
+  become: yes
+  unarchive:
+    src: https://github.com/protocolbuffers/protobuf/releases/download/v29.0/protoc-29.0-linux-x86_64.zip
+    dest: /usr/local
+    remote_src: yes
+    exclude:
+    - readme.txt
+    creates: /usr/local/bin/protoc
+
 - name: Install GitLab CLI tool
   become: yes
   apt:
