@@ -30,6 +30,16 @@
     src: templates/gitignore.j2
     dest: "{{ ansible_user_dir}}/.config/git/ignore"
 
+- name: Create AppImage directory
+  become: yes
+  file:
+    path: /opt/appimages
+    state: directory
+- name: Add AppImage directory to $PATH
+  copy:
+    dest: "{{ ansible_user_dir }}/.zshrc.d/appimages_path.sh"
+    content: "export PATH=$PATH:/opt/appimages/"
+
 - name: Install neovim packages
   become: yes
   package:
