@@ -67,6 +67,7 @@
   copy:
     dest: "{{ ansible_user_dir }}/.zshrc.d/nvim_alias.sh"
     content: |
+      alias vi='nvim'
       alias vim='nvim'
       alias vimdiff='nvim -d'
 

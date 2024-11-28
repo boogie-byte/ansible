@@ -32,9 +32,6 @@ zsh:
     sush: sudo -E -s
     sued: sudoedit
     zsh-reload: . ~/.zshrc
-    vi: nvim
-    vim: nvim
-    vimdiff: nvim -d
     kc: kubectl
   opts:
     EXTENDED_GLOB: true
