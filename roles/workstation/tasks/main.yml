@@ -99,6 +99,11 @@
   apt:
     deb: https://github.com/golang-migrate/migrate/releases/download/v4.18.1/migrate.linux-amd64.deb
 
+- name: Install mockgen
+  command:
+    cmd: go install go.uber.org/mock/mockgen@v0.4.0
+    creates: "{{ ansible_user_dir }}/.local/bin/mockgen"
+
 - name: Install GitLab CLI tool
   become: yes
   apt:
