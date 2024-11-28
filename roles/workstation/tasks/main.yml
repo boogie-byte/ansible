@@ -75,28 +75,6 @@
   apt:
     deb: https://github.com/golang-migrate/migrate/releases/download/v4.18.1/migrate.linux-amd64.deb
 
-- name: Download buf binary
-  become: yes
-  get_url:
-    url: https://github.com/bufbuild/buf/releases/download/v1.47.2/buf-Linux-x86_64
-    dest: /usr/local/bin/buf
-    checksum: sha256:3a0c4da8d46eea8136affa63db202c76a44f8112384160b73c3fffb1cf14b5d8
-- name: Make buf binary executable
-  become: yes
-  file:
-    path: /usr/local/bin/buf
-    mode: 0755
-
-- name: Install protobuf
-  become: yes
-  unarchive:
-    src: https://github.com/protocolbuffers/protobuf/releases/download/v29.0/protoc-29.0-linux-x86_64.zip
-    dest: /usr/local
-    remote_src: yes
-    exclude:
-    - readme.txt
-    creates: /usr/local/bin/protoc
-
 - name: Install GitLab CLI tool
   become: yes
   apt:

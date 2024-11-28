@@ -6,6 +6,7 @@
     - workstation
     - go-dev
     - k8s-dev
+    - protobuf-dev
   pre_tasks:
     - ansible.builtin.include_vars:
         file: local_vars.yml
