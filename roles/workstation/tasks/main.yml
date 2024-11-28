@@ -109,6 +109,18 @@
     cmd: go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.4.1
     creates: "{{ ansible_user_dir }}/.local/bin/oapi-codegen"
 
+- name: Download buf binary
+  become: yes
+  get_url:
+    url: https://github.com/bufbuild/buf/releases/download/v1.47.2/buf-Linux-x86_64
+    dest: /usr/local/bin/buf
+    checksum: sha256:3a0c4da8d46eea8136affa63db202c76a44f8112384160b73c3fffb1cf14b5d8
+- name: Make buf binary executable
+  become: yes
+  file:
+    path: /usr/local/bin/buf
+    mode: 0755
+
 - name: Install GitLab CLI tool
   become: yes
   apt:
