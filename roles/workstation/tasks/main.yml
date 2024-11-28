@@ -102,51 +102,6 @@
   apt:
     deb: https://gitlab.com/gitlab-org/cli/-/releases/v1.49.0/downloads/glab_1.49.0_linux_amd64.deb
 
-- name: Add k8s release key
-  become: yes
-  get_url:
-    url: https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key
-    dest: /etc/apt/keyrings/kubernetes-apt-keyring.asc
-    checksum: sha256:7627818cf7bae52f9008c93e8b1f961f53dea11d40891778de216fb1b43be54d
-- name: Add k8s repo
-  become: yes
-  apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /"
-    filename: pkgs_k8s_io
-- name: Install k8s tools
-  become: yes
-  package:
-    name: kubectl
-- name: Install ArgoCD CLI tool
-  become: yes
-  get_url:
-    url: https://github.com/argoproj/argo-cd/releases/download/v2.13.1/argocd-linux-amd64
-    dest: /usr/local/bin/argocd
-    checksum: sha256:8e436f0429d2a88b3181d2cfc460c034070e0ee1c665467271e5d75eb4d55f7f
-    mode: 0755
-- name: Install kubeseal tool
-  become: yes
-  get_url:
-    url: https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.27.2/kubeseal-0.27.2-darwin-amd64.tar.gz
-    dest: /usr/local/bin/kubeseal
-    checksum: sha256:95f20591d65c9e7dd3387223b56811a47d0183dca3bb3e66f0c979a2a2f1cd76
-    mode: 0755
-
-- name: Install kubelogin
-  when: "'/usr/local/bin/kubectl-oidc_login' is not exists"
-  block:
-  - name: Download kubelogin
-    become: yes
-    unarchive:
-      src: https://github.com/int128/kubelogin/releases/download/v1.31.0/kubelogin_linux_amd64.zip
-      dest: /usr/local/bin
-      remote_src: yes
-      include:
-        - kubelogin
-  - name: Rename kubelogin to kubectl-oidc_login
-    become: yes
-    command: mv /usr/local/bin/kubelogin /usr/local/bin/kubectl-oidc_login
-
 - name: Install basic packages
   become: yes
   package:
