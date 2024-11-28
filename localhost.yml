@@ -4,6 +4,7 @@
     - common
     - docker
     - workstation
+    - go-dev
   pre_tasks:
     - ansible.builtin.include_vars:
         file: local_vars.yml

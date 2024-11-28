@@ -70,44 +70,10 @@
       alias vim='nvim'
       alias vimdiff='nvim -d'
 
-- name: Install golang compiler
-  become: yes
-  unarchive:
-    src: https://go.dev/dl/go1.23.3.linux-amd64.tar.gz
-    dest: /usr/local
-    remote_src: yes
-    creates: /usr/local/go
-- name: Add go binary to $PATH
-  copy:
-    dest: "{{ ansible_user_dir }}/.zshrc.d/go_path.sh"
-    content: "export PATH=$PATH:/usr/local/go/bin"
-- name: Create go config dir
-  file:
-    path: "{{ ansible_user_dir }}/.config/go"
-    state: directory
-- name: Set go environment variables
-  template:
-    src: templates/goenv.j2
-    dest: "{{ ansible_user_dir }}/.config/go/env"
-- name: Install golangci-lint
-  become: yes
-  apt:
-    deb: https://github.com/golangci/golangci-lint/releases/download/v1.61.0/golangci-lint-1.61.0-linux-amd64.deb
-
 - name: Install go-migrate
   become: yes
   apt:
     deb: https://github.com/golang-migrate/migrate/releases/download/v4.18.1/migrate.linux-amd64.deb
-
-- name: Install mockgen
-  command:
-    cmd: go install go.uber.org/mock/mockgen@v0.4.0
-    creates: "{{ ansible_user_dir }}/.local/bin/mockgen"
-
-- name: Install oapi-codegen
-  command:
-    cmd: go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.4.1
-    creates: "{{ ansible_user_dir }}/.local/bin/oapi-codegen"
 
 - name: Download buf binary
   become: yes

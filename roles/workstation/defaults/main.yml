@@ -31,7 +31,3 @@ git:
       defaultBranch: main
     pull:
       rebase: true
-
-go:
-  env:
-    GOBIN: "{{ ansible_user_dir }}/.local/bin"

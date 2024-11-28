@@ -1,0 +1,4 @@
+---
+go:
+  env:
+    GOBIN: "{{ ansible_user_dir }}/.local/bin"
