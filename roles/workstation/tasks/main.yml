@@ -40,14 +40,25 @@
     dest: "{{ ansible_user_dir }}/.zshrc.d/appimages_path.sh"
     content: "export PATH=$PATH:/opt/appimages/"
 
-- name: Install neovim packages
+- name: Install neovim dependencies
   become: yes
   package:
     name: "{{ item }}"
   loop:
-  - neovim
+  - libfuse2t64
   - ripgrep
   - fd-find
+- name: Download neovim AppImage
+  become: yes
+  get_url:
+    url: https://github.com/neovim/neovim/releases/download/v0.10.2/nvim.appimage
+    dest: /opt/appimages/nvim
+    checksum: sha256:970113b5279718126b82adddf3fbed1741db7afabf8a4134635a0d75c9f2c5d8
+- name: Make neovim AppImage executable
+  become: yes
+  file:
+    path: /opt/appimages/nvim
+    mode: 0755
 - name: Fetch neovim configuration
   git:
     repo: git@github.com:boogie-byte/kickstart.nvim.git
