@@ -108,6 +108,21 @@
     checksum: sha256:95f20591d65c9e7dd3387223b56811a47d0183dca3bb3e66f0c979a2a2f1cd76
     mode: 0755
 
+- name: Install kubelogin
+  when: "'/usr/local/bin/kubectl-oidc_login' is not exists"
+  block:
+  - name: Download kubelogin
+    become: yes
+    unarchive:
+      src: https://github.com/int128/kubelogin/releases/download/v1.31.0/kubelogin_linux_amd64.zip
+      dest: /usr/local/bin
+      remote_src: yes
+      include:
+        - kubelogin
+  - name: Rename kubelogin to kubectl-oidc_login
+    become: yes
+    command: mv /usr/local/bin/kubelogin /usr/local/bin/kubectl-oidc_login
+
 - name: Install basic packages
   become: yes
   package:
