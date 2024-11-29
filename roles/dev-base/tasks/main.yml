@@ -45,9 +45,10 @@
   package:
     name: "{{ item }}"
   loop:
+  - cmake
+  - fd-find
   - libfuse2t64
   - ripgrep
-  - fd-find
 - name: Download neovim AppImage
   become: yes
   get_url:
