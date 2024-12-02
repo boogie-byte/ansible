@@ -20,11 +20,12 @@ git:
     push:
       default: simple
     alias:
-      co: checkout
-      ci: commit
-      st: status -s
       br: branch --sort=-committerdate
+      ci: commit
+      co: checkout
       hist: log --graph --pretty=format:\"[%h] %an %ad%d%n%s%n\" --date=local
+      st: status -s
+      sw: switch
     color:
       ui: auto
     init:
